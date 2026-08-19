@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.env
+
+# Dane robocze nie powinny trafiać do repo.
+data/raw/
+data/interim/
+data/processed/
+data/external/
+outputs/
+reports/
+models/
+
+# Pozwalamy trzymać puste katalogi w git.
+!.gitkeep
