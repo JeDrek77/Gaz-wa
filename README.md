@@ -46,6 +46,23 @@ Jesli plik ma polskie nazwy kolumn, mozesz je podac wprost:
 uv run gaz-wa make-report data/raw/dane.xlsx --timestamp-col Data --target-col Zuzycie_gazu --sheet-name Arkusz1
 ```
 
+## Dane z SQL
+
+SQLite:
+
+```powershell
+uv run gaz-wa inspect-sql --sqlite-path data/raw/gaz.sqlite --table-name gas_usage --timestamp-col timestamp --target-col gas_consumption
+uv run gaz-wa make-report-sql --sqlite-path data/raw/gaz.sqlite --query "SELECT * FROM gas_usage" --timestamp-col timestamp --target-col gas_consumption --out-dir reports/eda_sql
+```
+
+Inne bazy przez SQLAlchemy URL:
+
+```powershell
+uv run gaz-wa make-features-sql --database-url "postgresql+psycopg://user:password@host:5432/dbname" --query "SELECT * FROM gas_usage" --timestamp-col timestamp --target-col gas_consumption --out-path data/processed/sql_features.parquet
+```
+
+Hasel i connection stringow nie commituj do repo. Najlepiej trzymaj je w zmiennych srodowiskowych albo lokalnym `.env`, ktory jest ignorowany przez git.
+
 ## Minimalny wymagany schemat
 
 Pipeline wymaga jednej kolumny czasu i jednej kolumny celu:
